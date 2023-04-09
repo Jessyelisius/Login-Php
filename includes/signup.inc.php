@@ -1,7 +1,4 @@
 <?php
-// require "./classes/dbh.classes.php";
-// require "./classes/signup.classes.php";
-// require "./classes/signup-contrl.classes.php";
 
 if (isset($_POST["submit"])) {
     

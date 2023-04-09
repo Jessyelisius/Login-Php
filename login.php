@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +15,7 @@
 
 <div class="wrapper">
     <h2>Login</h2>
-    <form action="includes/login.inc.php" method="get">
+    <form action="includes/login.inc.php" method="post">
       <div class="input-box">
         <input type="text" name="uid" placeholder="Username" required>
       </div>
