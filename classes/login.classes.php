@@ -15,7 +15,7 @@ class Login extends Dbh {
 
         if ($stmt->rowCount()== 0) {
             $stmt = null;
-            header('location: ../index.php?error=stmtfailed');
+            header('location: ../index.php?error=usernotfound');
             exit();
         }
 
@@ -24,13 +24,13 @@ class Login extends Dbh {
 
         if ($checkPwd == false) {
             $stmt = null;
-            header('location: ../index.php?error=stmtfailed');
+            header('location: ../index.php?error=wrongpassword');
             exit();
         }
         elseif ($checkPwd == true) {
             $stmt = $this->connect()->prepare("SELECT * FROM ooplogin.usery WHERE users_uid = ? OR users_email = ? AND users_pwd = ?;");
 
-            if (!$stmt->execute(array($uid, $pwd))) {
+            if (!$stmt->execute(array($uid, $uid, $pwd))) {
                 $stmt = null;
                 header('location: ../index.php?error=stmtfailed');
                 exit();
@@ -39,14 +39,16 @@ class Login extends Dbh {
 
         if ($stmt->rowCount() == 0) {
             $stmt = null;
-            header('location: ../index.php?error=user not found');
+            header('location: ../index.php?error=usernotfound');
             exit();
         }
 
         $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
         session_start();
         $_SESSION["userid"] = $user[0] ["users_id"];
-        $_SESSION["user_uid"] = $user[0] ["users_id"];
+        $_SESSION["useruid"] = $user[0] ["users_uid"];
+
         $stmt = null;
+
     }   
 }
